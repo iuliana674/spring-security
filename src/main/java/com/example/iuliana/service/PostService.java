@@ -35,7 +35,7 @@ public class PostService {
         Post post = getPostById(id);
         mapPosts(post, modifiedPost);
         save(post);
-        return modifiedPost;
+        return post;
     }
 
     private void mapPosts(Post post, Post modifiedPost) {
