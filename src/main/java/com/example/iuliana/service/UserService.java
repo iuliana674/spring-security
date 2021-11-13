@@ -40,7 +40,7 @@ public class UserService implements UserDetailsService {
         User user = getUserById(id);
         mapUsers(user, modifiedUser);
         save(user);
-        return modifiedUser;
+        return user;
     }
 
     public List<User> getAllUsers(){
@@ -63,12 +63,15 @@ public class UserService implements UserDetailsService {
     }
 
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles){
-        return roles.stream().map(r -> new SimpleGrantedAuthority(r.getName()))
+        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toList());
     }
 
     private void mapUsers(User user, User modifiedUser) {
         user.setUsername(modifiedUser.getUsername());
+        user.setPassword(modifiedUser.getPassword());
+        user.setEmail(modifiedUser.getEmail());
+        user.setRoles(modifiedUser.getRoles());
         user.setPosts(modifiedUser.getPosts());
     }
 }
